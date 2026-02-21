@@ -9,6 +9,10 @@ const urlSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    clickCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true },
 );

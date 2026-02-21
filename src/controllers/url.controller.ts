@@ -76,7 +76,15 @@ export const redirectToLongUrl = async (req: Request, res: Response) => {
       });
     }
 
-    return res.redirect(urlData.longUrl as string);
+    res.redirect(urlData.longUrl as string);
+
+    let count = urlData.clickCount ? (urlData.clickCount as number) + 1 : 1;
+
+    await UrlModel.findOneAndUpdate(
+      { shortUrl: shortUrl },
+      { clickCount: count },
+    );
+    return;
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({

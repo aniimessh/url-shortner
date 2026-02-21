@@ -1,0 +1,29 @@
+# Dependency caches
+# Example: node_modules/ for Node.js, vendor/ for PHP, etc.
+node_modules/
+vendor/
+
+# Compiled/build artifacts
+# Examples: .class, .pyc, .o files, or entire output directories
+/build
+/dist
+/target
+*.class
+*.pyc
+*.o
+*.log # Log files generated at runtime
+
+# Environment/Configuration files
+# Files containing sensitive data like API keys, passwords, etc.
+# These should be handled via environment variables or a secure system
+.env
+.flaskenv
+config.json # If it contains secrets
+
+# IDE and OS specific files
+# Prevents committing personal settings
+.idea/ # JetBrains IDEs
+.vscode/ # VS Code
+.DS_Store # macOS
+Thumbs.db # Windows
+*.swp # Vim swap files

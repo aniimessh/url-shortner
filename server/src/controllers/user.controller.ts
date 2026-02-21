@@ -19,12 +19,14 @@ export const signupUser = async (
     }
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email, username });
+    const existingUser = await User.findOne({
+      $or: [{ username }, { email }],
+    });
 
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "User with this email already exists",
+        message: "User with this email or username already exists",
         method: signupUser.name,
       });
     }

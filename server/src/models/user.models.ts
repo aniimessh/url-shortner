@@ -11,6 +11,14 @@ const userSchema = new mongoose.Schema<IUser>(
     email: {
       type: String,
       required: [true, "Email is required"],
+      validate: {
+        validator: function (email: string) {
+          // Regular expression for validating an Email
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return emailRegex.test(email);
+        },
+        message: "Please enter a valid email address",
+      },
     },
     password: {
       type: String,

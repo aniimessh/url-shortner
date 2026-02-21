@@ -1,23 +1,28 @@
-// middleware.ts (place this in the root of your project)
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// Routes that ONLY non-logged-in users can access
+const AUTH_ROUTES = ["/sign-up", "/login"];
+
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get("jwtToken")?.value;
+  const { pathname } = request.nextUrl;
 
-  // If no token found, redirect to signup
-  if (!token) {
-    const signupUrl = new URL("/user-auth", request.url);
+  const isAuthRoute = AUTH_ROUTES.includes(pathname);
 
-    return NextResponse.redirect(signupUrl);
+  // ✅ Logged in + trying to access login/signup → redirect to home
+  if (token && isAuthRoute) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Token exists, allow the request to proceed
+  // ✅ Not logged in + trying to access any non-auth route → redirect to signup
+  if (!token && !isAuthRoute) {
+    return NextResponse.redirect(new URL("/sign-up", request.url));
+  }
+
   return NextResponse.next();
 }
 
-// Configure which routes the middleware applies to
 export const config = {
-  matcher: ["/((?!user-auth|api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

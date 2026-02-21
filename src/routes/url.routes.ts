@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/create-short-url", createShortUrl);
 router.get("/:shortUrl", redirectToLongUrl);
 router.get("/", (req, res) => {
-  return res.redirect(
+  return res.send(
     "https://documenter.getpostman.com/view/29075585/2sBXcEkLCX",
   );
 });

@@ -11,6 +11,6 @@ const app = express();
 app.use(express.json());
 
 // routes
-app.use("/api/v1/url", urlRoutes);
+app.use(process.env.API_BASE_URL as string, urlRoutes);
 
 export default app;

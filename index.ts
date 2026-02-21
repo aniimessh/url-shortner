@@ -1,8 +1,9 @@
-import { connectToDatabase } from './src/database/index';
+import { connectToDatabase } from "./src/database/index";
 import app from "./src/index";
 
 connectToDatabase();
 
-app.listen(3000, () => {
+// update with your own port and base url in .env file
+app.listen(process.env.PORT, () => {
   console.log("Server is running on port 3000");
 });

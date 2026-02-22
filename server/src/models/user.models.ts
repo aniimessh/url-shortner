@@ -7,6 +7,13 @@ const userSchema = new mongoose.Schema<IUser>(
     username: {
       type: String,
       required: [true, "Username is required"],
+      validate: {
+        validator: function (username: string) {
+          const usernameRegex = /^[a-zA-Z0-9_]+$/;
+          return usernameRegex.test(username);
+        },
+        message: "Username cannot have spaces or special characters",
+      },
     },
     email: {
       type: String,
